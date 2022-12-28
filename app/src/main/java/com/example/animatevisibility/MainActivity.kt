@@ -3,7 +3,7 @@ package com.example.animatevisibility
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -32,6 +32,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainScreen() {
     var boxVisible by remember { mutableStateOf(true) }
@@ -59,7 +60,13 @@ fun MainScreen() {
                 .size(height = 200.dp, width = 200.dp)
                 .background(Color.Blue))
         }*/
-        AnimatedVisibility(visible = boxVisible) {
+        AnimatedVisibility(
+            visible = boxVisible,
+            //enter = fadeIn(initialAlpha = .5f),
+            //enter = scaleIn(),
+            enter = fadeIn() + expandHorizontally(),
+            exit = slideOutVertically(),
+        ) {
             Box(modifier = Modifier
                 .size(height = 200.dp, width = 200.dp)
                 .background(Color.Blue))

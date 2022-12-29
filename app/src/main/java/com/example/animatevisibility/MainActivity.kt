@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.*
+import androidx.compose.animation.core.CubicBezierEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -64,7 +67,11 @@ fun MainScreen() {
             visible = boxVisible,
             //enter = fadeIn(initialAlpha = .5f),
             //enter = scaleIn(),
-            enter = fadeIn() + expandHorizontally(),
+            //enter = fadeIn() + expandHorizontally(),
+            //enter = fadeIn(animationSpec = tween(durationMillis = 5000)),
+            //enter = slideInHorizontally(animationSpec = tween(durationMillis = 5000, easing = LinearOutSlowInEasing)),
+            enter = slideInHorizontally(animationSpec =
+                        tween(durationMillis = 5000, easing = CubicBezierEasing(0f, 1f, 0.5f, 1f))),
             exit = slideOutVertically(),
         ) {
             Box(modifier = Modifier

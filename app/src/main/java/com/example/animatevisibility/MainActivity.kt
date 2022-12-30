@@ -50,8 +50,17 @@ fun MainScreen() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            CustomButton(text = "Show", targetState = true, onClick = onClick, Color.Magenta)
-            CustomButton(text = "Hide", targetState = false, onClick = onClick)
+            //CustomButton(text = "Show", targetState = true, onClick = onClick, Color.Magenta)
+            //CustomButton(text = "Hide", targetState = false, onClick = onClick)
+            Crossfade(
+                targetState = boxVisible,
+                animationSpec = tween(5000)
+            ) { visible ->
+                when (visible) {
+                    true -> CustomButton(text = "Hide", targetState = false, onClick = onClick, bgColor = Color.Red)
+                    false -> CustomButton(text = "Show", targetState = true, onClick = onClick, bgColor = Color.Magenta)
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -66,7 +75,8 @@ fun MainScreen() {
 
         AnimatedVisibility(
             //visible = boxVisible,
-            visibleState = state.apply { targetState = true },
+            //visibleState = state.apply { targetState = true },
+            visible = boxVisible,
             //enter = fadeIn(initialAlpha = .5f),
             //enter = scaleIn(),
             //enter = fadeIn() + expandHorizontally(),
@@ -79,8 +89,9 @@ fun MainScreen() {
             exit = fadeOut(animationSpec = tween(durationMillis = 5500))*/
             //enter = EnterTransition.None,
             //exit = ExitTransition.None
-            enter = fadeIn(animationSpec = tween(5000)),
-            exit = slideOutVertically()
+            enter = fadeIn(animationSpec = tween(durationMillis = 5500)),
+            //exit = slideOutVertically()
+            exit = fadeOut(animationSpec = tween(durationMillis = 5500))
         ) {
             Row {
                 Box(modifier = Modifier
@@ -94,9 +105,11 @@ fun MainScreen() {
                 Box(modifier = Modifier
                     .animateEnterExit(
                         enter = slideInVertically(
-                            animationSpec = tween(durationMillis = 5500)),
+                            animationSpec = tween(durationMillis = 5500)
+                        ),
                         exit = slideOutVertically(
-                            animationSpec = tween(durationMillis = 5500))
+                            animationSpec = tween(durationMillis = 5500)
+                        )
                     )
                     .size(width = 150.dp, height = 150.dp)
                     .background(Color.Red)

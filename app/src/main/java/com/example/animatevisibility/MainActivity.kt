@@ -69,12 +69,33 @@ fun MainScreen() {
             //enter = fadeIn(animationSpec = tween(durationMillis = 5000)),
             //enter = slideInHorizontally(animationSpec = tween(durationMillis = 5000, easing = LinearOutSlowInEasing)),
             //enter = slideInHorizontally(animationSpec = tween(durationMillis = 5000, easing = CubicBezierEasing(0f, 1f, 0.5f, 1f))),
-            enter = fadeIn(animationSpec = repeatable(10, animation = tween(durationMillis = 2000), repeatMode = RepeatMode.Reverse)),
-            exit = slideOutVertically(),
+            //enter = fadeIn(animationSpec = repeatable(10, animation = tween(durationMillis = 2000), repeatMode = RepeatMode.Reverse)),
+            //exit = slideOutVertically(),
+            /*enter = fadeIn(animationSpec = tween(durationMillis = 5500)),
+            exit = fadeOut(animationSpec = tween(durationMillis = 5500))*/
+            enter = EnterTransition.None,
+            exit = ExitTransition.None
         ) {
-            Box(modifier = Modifier
-                .size(height = 200.dp, width = 200.dp)
-                .background(Color.Blue))
+            Row {
+                Box(modifier = Modifier
+                    .animateEnterExit(
+                        enter = fadeIn(animationSpec = tween(durationMillis = 5500)),
+                        exit = fadeOut(animationSpec = tween(durationMillis = 5500))
+                    )
+                    .size(height = 200.dp, width = 200.dp)
+                    .background(Color.Blue))
+                Spacer(modifier = Modifier.width(20.dp))
+                Box(modifier = Modifier
+                    .animateEnterExit(
+                        enter = slideInVertically(
+                            animationSpec = tween(durationMillis = 5500)),
+                        exit = slideOutVertically(
+                            animationSpec = tween(durationMillis = 5500))
+                    )
+                    .size(width = 150.dp, height = 150.dp)
+                    .background(Color.Red)
+                )
+            }
         }
     }
 }

@@ -61,8 +61,12 @@ fun MainScreen() {
                 .size(height = 200.dp, width = 200.dp)
                 .background(Color.Blue))
         }*/
+
+        val state = remember { MutableTransitionState(false) }
+
         AnimatedVisibility(
-            visible = boxVisible,
+            //visible = boxVisible,
+            visibleState = state.apply { targetState = true },
             //enter = fadeIn(initialAlpha = .5f),
             //enter = scaleIn(),
             //enter = fadeIn() + expandHorizontally(),
@@ -73,8 +77,10 @@ fun MainScreen() {
             //exit = slideOutVertically(),
             /*enter = fadeIn(animationSpec = tween(durationMillis = 5500)),
             exit = fadeOut(animationSpec = tween(durationMillis = 5500))*/
-            enter = EnterTransition.None,
-            exit = ExitTransition.None
+            //enter = EnterTransition.None,
+            //exit = ExitTransition.None
+            enter = fadeIn(animationSpec = tween(5000)),
+            exit = slideOutVertically()
         ) {
             Row {
                 Box(modifier = Modifier
